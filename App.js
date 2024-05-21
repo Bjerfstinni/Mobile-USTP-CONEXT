@@ -20,7 +20,7 @@ function App() {
         }}  />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Home" component={HomeScreen}/>
+        <Stack.Screen name="HomeScreen" component={HomeScreen}/>
         <Stack.Screen name="Administrators" component={Administrators}/>
         <Stack.Screen name="Profile" component={ProfileScreen}/>
         <Stack.Screen name="User" component={UserScreen}/>

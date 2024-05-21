@@ -1,15 +1,31 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
 const SignUp = ({ navigation }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignUp = () => {
-    // Implement sign-up logic here
-    console.log('Signing up with:', firstName, lastName, email, password);
+  const handleSignUp = async () => {
+    try {
+      const response = await fetch('http://192.168.1.38:5000/SignUp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fname, lname, email, password }),
+      });
+      const data = await response.json();
+      if (data.status === 'okay') {
+        Alert.alert('Registration Successful', 'You have successfully registered!');
+        navigation.navigate('Login');
+      } else {
+        Alert.alert('Registration Failed', data.error || 'An error occurred');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'An error occurred during registration');
+    }
   };
 
   return (
@@ -18,14 +34,14 @@ const SignUp = ({ navigation }) => {
       <TextInput
         style={styles.input}
         placeholder="First Name"
-        value={firstName}
-        onChangeText={setFirstName}
+        value={fname}
+        onChangeText={setFname}
       />
       <TextInput
         style={styles.input}
         placeholder="Last Name"
-        value={lastName}
-        onChangeText={setLastName}
+        value={lname}
+        onChangeText={setLname}
       />
       <TextInput
         style={styles.input}
@@ -45,9 +61,12 @@ const SignUp = ({ navigation }) => {
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.toggleText}>Already Have an Account</Text>
-      </TouchableOpacity>
+      <View style={styles.toggleContainer}>
+        <Text style={styles.toggleText}>Already have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.linkText}>Login</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -88,9 +107,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+  toggleContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
   toggleText: {
+    color: 'black',
+    textAlign: 'center',
+  },
+  linkText: {
     color: '#007bff', // Link color
     textAlign: 'center',
-    marginTop: 10,
   },
 });
