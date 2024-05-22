@@ -9,16 +9,6 @@ function HomePage({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.viewStyle}>
-        <Button 
-          title="Profile" 
-          onPress={()=> navigation.navigate("Profile", {
-            fname: "Danz",
-            lname: "Famas",
-          })}
-        />
-      </View>
-
       <View style={styles.getConnected}>
         <Text style={styles.heading}>Get Connected to The Next Generation</Text>
         <Text style={styles.paragraph}>
@@ -64,10 +54,28 @@ function HomePage({ navigation }) {
           </View>
 
           {/* Card 2 */}
-          {/* Add other cards here */}
+          <View style={[styles.card, styles.darkBackground]}>
+            <View style={styles.cardBody}>
+              <Text style={styles.cardIcon}>💻</Text>
+              <Text style={styles.cardTitle}>Virtual</Text>
+              <Text style={styles.cardText}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas voluptatem repellendus unde veniam eius quia inventore amet dicta? Incidunt, cumque.</Text>
+              <TouchableOpacity style={styles.cardButton}>
+                <Text style={styles.cardButtonText}>Go somewhere</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
           {/* Card 3 */}
-          {/* Add other cards here */}
+          <View style={[styles.card, styles.darkBackground]}>
+            <View style={styles.cardBody}>
+              <Text style={styles.cardIcon}>💻</Text>
+              <Text style={styles.cardTitle}>Virtual</Text>
+              <Text style={styles.cardText}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas voluptatem repellendus unde veniam eius quia inventore amet dicta? Incidunt, cumque.</Text>
+              <TouchableOpacity style={styles.cardButton}>
+                <Text style={styles.cardButtonText}>Go somewhere</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </View>
 
