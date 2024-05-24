@@ -1,21 +1,28 @@
-// HomeScreen.js
-import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import DrawerContent from '../Navigation/DrawerContent';
-import ProfileScreen from './ProfileScreen';
-import UserScreen from './UserScreen';
-import Administrators from './Administrators';
-
-const Drawer = createDrawerNavigator();
+import { StyleSheet, Text, View, Button} from "react-native";
 
 function HomeScreen() {
-  return (
-    <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-      <Drawer.Screen name="Profile" component={ProfileScreen} />
-      <Drawer.Screen name="User" component={UserScreen} />
-      <Drawer.Screen name="Administrators" component={Administrators} />
-    </Drawer.Navigator>
-  );
+    return (
+        <View style={styles.viewStyle}>
+        <Text style={styles.headingStyle}>THIS IS HOMESCREEN</Text>
+        <Text style={styles.textStyle}>NEWS</Text>
+        </View>
+    );
 }
-
+const styles = StyleSheet.create({
+    viewStyle: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+    },
+    textStyle: {
+        fontSize: 28,
+        color: 'black',
+    },
+    headingStyle: {
+        fontSize: 30,
+        color:'black',
+        textAlign: 'center',
+    },
+});
 export default HomeScreen;
