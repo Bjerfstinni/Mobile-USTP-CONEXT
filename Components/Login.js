@@ -1,7 +1,10 @@
+// Login.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { useAuth } from '../Navigation/AuthContext';
 
 const Login = ({ navigation }) => {
+  const { setIsLoggedIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,8 +20,9 @@ const Login = ({ navigation }) => {
       const data = await response.json();
       if (data.status === 'okay') {
         Alert.alert('Login Successful', 'You have successfully logged in!');
-      } 
-      else {
+        setIsLoggedIn(true); // Set the user as logged in
+        navigation.replace('HomeScreen'); // Navigate to HomeScreen
+      } else {
         Alert.alert('Login Failed', data.error || 'An error occurred');
       }
     } catch (error) {
