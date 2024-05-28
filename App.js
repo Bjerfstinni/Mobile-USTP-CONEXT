@@ -30,14 +30,25 @@ const MainNavigator = () => {
     <Stack.Navigator>
       {isLoggedIn ? (
         <>
-          <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title:"Home" }} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title:"CITC CoNexT" ,
+            headerStyle: {
+              backgroundColor: '#044556',
+              },
+              headerTintColor: '#fff',
+              }}  />
           <Stack.Screen name="Profile" component={ProfileScreen} />
           <Stack.Screen name="User" component={UserScreen} />
           <Stack.Screen name="Administrators" component={Administrators} />
         </>
       ) : (
         <>
-          <Stack.Screen name="HomePage" component={HomePage} options={{ title: "Home Page" }} />
+          <Stack.Screen name="HomePage" component={HomePage} options={{ title: "CITC CoNexT" ,
+            headerStyle: {
+              backgroundColor: '#044556',
+              },
+              headerTintColor: '#fff',
+              }}  />
+
           <Stack.Screen name="Login" component={Login} options={{ headerShown: true }} />
           <Stack.Screen name="SignUp" component={SignUp} />
         </>
