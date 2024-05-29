@@ -40,7 +40,6 @@ function HomeScreen({ navigation }) {
 
       {/* Cards */}
       <View style={styles.cards}>
-      
 
         {/* Add an id to this view */}
         <View style={styles.cardContainer} nativeID="blogSection">
@@ -90,9 +89,9 @@ function HomeScreen({ navigation }) {
         </Text>
         <TouchableOpacity
           style={styles.imgbtnbg}
-          onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.buttonbg}>Connect With Us!</Text>
-        </TouchableOpacity>
+          onPress={() => navigation.navigate("Administrators")}>
+    <Text style={styles.adminButtonText1}>Meet the developers!</Text>
+  </TouchableOpacity>
       </View>
       <View style={styles.imagebg}>
         <Image source={require('../assets/success.jpg')} style={styles.image} />
@@ -101,9 +100,9 @@ function HomeScreen({ navigation }) {
         </Text>
         <TouchableOpacity
           style={styles.imgbtnbg}
-          onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.buttonbg}>Connect With Us!</Text>
-        </TouchableOpacity>
+          onPress={() => navigation.navigate("Administrators")}>
+    <Text style={styles.adminButtonText1}>Meet the developers!</Text>
+  </TouchableOpacity>
       </View>
 
       {/* Accordion */}
@@ -111,10 +110,10 @@ function HomeScreen({ navigation }) {
         <TouchableOpacity
           style={styles.accordionButton}
           onPress={() => setIsCollapsed1(!isCollapsed1)}>
-          <Text style={styles.accordionButtonText}>What kind of IDEAS are you looking for?</Text>
+          <Text style={styles.accordionButtonText}>What kind of news are you looking for?</Text>
         </TouchableOpacity>
         <Collapsible collapsed={isCollapsed1}>
-          <Text style={styles.accordionContent}>Nakatikim ka na ba ng Tampal Puke?</Text>
+          <Text style={styles.accordionContent}>Wanna share some legitimate news?</Text>
         </Collapsible>
 
         <TouchableOpacity
@@ -138,18 +137,52 @@ function HomeScreen({ navigation }) {
 
       {/* Administrators */}
       <View style={styles.viewStyle}>
-        <Button 
-          title="Administrators" 
-          onPress={()=> navigation.navigate("Administrators")}
-        />
-      </View>
+  <TouchableOpacity
+    style={styles.adminButtonspace} // Add this style
+  >
+    <Text style={styles.adminButtonText}></Text>
+  </TouchableOpacity>
+</View>
+
+<View style={styles.viewStyle}>
+  <TouchableOpacity
+    style={styles.adminButton} // Add this style
+    onPress={() => navigation.navigate("Administrators")}
+  >
+    <Text style={styles.adminButtonText}>Administrators</Text>
+  </TouchableOpacity>
+  
+</View>
+<View style={styles.viewStyle}>
+  <TouchableOpacity
+    style={styles.adminButtonspace} // Add this style
+  >
+    <Text style={styles.adminButtonText}></Text>
+  </TouchableOpacity>
+</View>
+
 
       {/* Modal */}
       {/* Implement modal component */}
       {/* Footer */}
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Copyright © 2023</Text>
-      </View>
+    <Text style={styles.footerText1}>Copyright © 2023</Text>
+  <TouchableOpacity onPress={() => {/* Navigate to Privacy Policy screen */}}>
+    <Text style={styles.footerLink}>Privacy Policy</Text>
+  </TouchableOpacity>
+  <TouchableOpacity onPress={() => {/* Navigate to Terms & Conditions screen */}}>
+    <Text style={styles.footerLink}>Terms & Conditions</Text>
+  </TouchableOpacity>
+  <TouchableOpacity onPress={() => {/* Navigate to Cookie Policy screen */}}>
+    <Text style={styles.footerLink}>Cookie Policy</Text>
+  </TouchableOpacity>
+  <TouchableOpacity onPress={() => {/* Navigate to Contact screen */}}>
+    <Text style={styles.footerLink}>Contact</Text>
+  </TouchableOpacity>
+  <TouchableOpacity>
+    <Text style={styles.footerLink}></Text>
+  </TouchableOpacity>
+</View>
       
     </ScrollView>
   );
@@ -182,7 +215,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    textAlign: 'justify',
+    
 
   },
   paragraph: {
@@ -323,10 +356,21 @@ const styles = StyleSheet.create({
   footer: {
     backgroundColor: '#044556',
     paddingVertical: 20,
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    paddingHorizontal: 20,
   },
   footerText: {
     color: '#fff',
+  },
+  footerText1: {
+    color: '#fff',
+    fontSize: 20,
+    paddingBottom: 15,
+  },
+  footerLink: {
+    color: '#fff',
+    textDecorationLine: 'underline',
+    marginBottom: 5,
   },
 
   imageSection: {
@@ -377,6 +421,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     alignSelf: 'flex-start',
+    
   },
   accordion: {
     marginTop: 20,
@@ -391,6 +436,11 @@ const styles = StyleSheet.create({
   accordionButtonText: {
     color: '#044556',
     fontWeight: 'bold',
+    borderWidth: 1, 
+    borderColor: '#044556',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 1000,
   },
   accordionContent: {
     backgroundColor: '#f0f0f0',
@@ -401,6 +451,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  adminButton: {
+    backgroundColor: '#fff',
+    paddingVertical: 15,
+    paddingHorizontal: 80,
+    borderRadius: 10,
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: '#044556', 
+  },
+
+  adminButtonText: {
+    color: '#044556',
+    fontWeight: 'bold',
+  },
+  adminButtonText1: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  
+  
   
 });
 
