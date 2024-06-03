@@ -50,20 +50,7 @@ function Administrators() {
               <Text style={styles.cardButtonText}>Connect</Text>
             </TouchableOpacity>
           </View>
-        </View>
-
-        {/* Fourth Card */}
-        <View style={[styles.card, styles.cardBackground4]}>
-          <View style={styles.cardBody}>
-            <Image source={nozoIcon} style={styles.cardIcon} />
-            <Text style={styles.cardTitle2}>Nozo Kawakami</Text>
-            <Text>QA Engineer</Text>
-            <Text style={styles.cardText2}>Nozo is the guardian of quality, meticulously testing and analyzing software to ensure it meets the highest standards of reliability, functionality, and performance. Armed with a keen eye for detail and a systematic approach to testing, Nozo identifies and addresses issues before they impact the user experience, collaborating closely with developers to resolve issues efficiently. With a passion for continuous improvement, Nozo advocates for best practices in testing methodologies and tools, driving quality assurance initiatives that enhance the overall integrity of the software product.</Text>
-            <TouchableOpacity style={styles.cardButton}>
-              <Text style={styles.cardButtonText}>Connect</Text>
-            </TouchableOpacity>
-          </View>
-        </View>          
+        </View>       
       </View>
     </ScrollView>
   );

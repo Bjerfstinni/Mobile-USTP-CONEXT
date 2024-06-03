@@ -1,9 +1,14 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, Modal, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Dimensions } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
 
-const ModalComponent = ({ visible, onClose, onLogout }) => {
+const ModalComponent = ({ visible, onClose, onLogout, navigation }) => {
+  const handleLogout = () => {
+    onClose(); // Close the modal when the Logout button is pressed
+    onLogout(); // Perform logout action
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -11,43 +16,61 @@ const ModalComponent = ({ visible, onClose, onLogout }) => {
       visible={visible}
       onRequestClose={onClose}
     >
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>This is the modal content</Text>
-          <Button onPress={onLogout} title="Logout" />
-          <Button onPress={onClose} title="Close" />
+      <View style={styles.container}>
+        <View style={styles.drawer}>
+          <Text style={styles.header}>MENU</Text>
+          <TouchableOpacity
+            style={styles.drawerItem}
+            onPress={() => {
+              navigation.navigate("Administrators");
+              onClose(); 
+            }}
+          >
+            <Text style={styles.drawerItemText}>Administrators</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.drawerItem}
+            onPress={handleLogout} // Call the handleLogout function
+          >
+            <Text style={styles.drawerItemText}>Logout</Text>
+          </TouchableOpacity>
         </View>
+        <TouchableOpacity style={styles.overlay} onPress={onClose} />
       </View>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  centeredView: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent background
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    flexDirection: 'row',
   },
-  modalView: {
-    width: width / 2, // Half the width of the screen
-    height: height, // Full height of the screen
+  drawer: {
     backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    width: width * 0.8, // 80% of the screen width
+    paddingTop: 50,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+    borderRightWidth: 1,
+    borderRightColor: 'lightgray',
   },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  drawerItem: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+  },
+  drawerItemText: {
+    fontSize: 16,
+  },
+  overlay: {
+    flex: 1,
   },
 });
 

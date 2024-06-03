@@ -1,117 +1,70 @@
-import React, { useState, useRef } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image, Linking } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 import Collapsible from 'react-native-collapsible';
 
 function HomeScreen({ navigation }) {
   const [isCollapsed1, setIsCollapsed1] = useState(true);
   const [isCollapsed2, setIsCollapsed2] = useState(true);
   const [isCollapsed3, setIsCollapsed3] = useState(true);
+  const [news, setNews] = useState([]);
+  const [error, setError] = useState(null);
 
   // Ref for ScrollView
   const scrollViewRef = useRef(null);
-
-  // Function to scroll to a specific section
-  const scrollToSection = (sectionId) => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollTo({ y: sectionId });
-    }
-  };
+  
+  // Fetch news data
+  useEffect(() => {
+    fetch("http://192.168.1.38:5000/fetchnews", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch news data");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setNews(data);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.container} ref={scrollViewRef}>
       <View style={styles.getConnected}>
-        {/* Made-up News/Blog Introduction */}
         <Text style={styles.heading}>Welcome to CITC-COnext News</Text>
         <Text style={styles.paragraph}>
           Stay updated with the latest trends and insights in the world of technology and innovation. Our blog brings you the freshest news, intriguing articles, and expert opinions to keep you informed and inspired. Dive into our latest stories and explore the future of tech with us.
         </Text>
         <View style={styles.centeredButtonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              // Scroll to the card section
-              scrollToSection(450); // Adjust the value according to your layout
-            }}>
-            <Text style={styles.buttonText}>Read More</Text>
-          </TouchableOpacity>
         </View>
         <Image source={require('../assets/img1.png')} style={styles.image} />
       </View>
 
-      {/* Cards */}
       <View style={styles.cards}>
-      <View style={styles.cardContainer}>
-        {/* Card 1 */}
-        <View style={[styles.card, styles.darkBackground]}>
-          <View style={styles.cardBody}>
-            <Image
-              source={require('../assets/news/image1.jpg')}
-              style={styles.cardIcon}
-            />
-            <Text style={styles.cardTitle}>DICT highlights urgent need to regulate social media 'terms and conditions' for public data protection</Text>
-            <Text style={styles.cardText}>
-              The Department of Information and Communications Technology (DICT) on Monday, May 27, highlighted the need to regulate the terms and conditions of over-the-top (OTT) social media applications regarding the use of public data.
-            </Text>
-            <TouchableOpacity style={styles.cardButton} onPress={() => Linking.openURL('https://mb.com.ph/2024/5/27/dict-highlights-urgent-need-to-regulate-social-media-terms-and-conditions-for-public-data-protection')}>
-              <Text style={styles.cardButtonText}>Continue reading</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Card 2 */}
-        <View style={[styles.card, styles.darkBackground]}>
-          <View style={styles.cardBody}>
-            <Image
-              source={require('../assets/news/image2.jpg')}
-              style={styles.cardIcon}
-            />
-            <Text style={styles.cardTitle}>Research team demonstrates modular, scalable hardware architecture for a quantum computer</Text>
-            <Text style={styles.cardText}>
-              Quantum computers hold the promise of being able to quickly solve extremely complex problems that might take the world's most powerful supercomputer decades to crack.
-            </Text>
-            <TouchableOpacity style={styles.cardButton} onPress={() => Linking.openURL('https://www.msn.com/en-us/news/other/research-team-demonstrates-modular-scalable-hardware-architecture-for-a-quantum-computer/ar-BB1ngJwa?ocid=BingNewsSearch')}>
-              <Text style={styles.cardButtonText}>Continue reading</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Card 3 */}
-        <View style={[styles.card, styles.darkBackground]}>
-          <View style={styles.cardBody}>
-            <Image
-              source={require('../assets/news/image3.jpg')}
-              style={styles.cardIcon}
-            />
-            <Text style={styles.cardTitle}>From colleague to computer: Navigating the blurred lines in tomorrow’s workplace</Text>
-            <Text style={styles.cardText}>
-              Imagine yourself, in the near future, joining a call to discuss a hiring initiative with four colleagues. Two of them are from strategy and HR. One is a vice president. Another comes from a department with an urgent need for more investment. The discussion is productive, and you schedule a follow-up session.
-            </Text>
-            <TouchableOpacity style={styles.cardButton} onPress={() => Linking.openURL('https://www.fastcompany.com/91131376/from-colleague-to-computer-navigating-the-blurred-lines-in-tomorrows-workplace')}>
-              <Text style={styles.cardButtonText}>Continue reading</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Card 4 */}
-        <View style={[styles.card, styles.darkBackground]}>
-          <View style={styles.cardBody}>
-            <Image
-              source={require('../assets/news/image4.jpg')}
-              style={styles.cardIcon}
-            />
-            <Text style={styles.cardTitle}>Super Micro Computer (SMCI) Experienced an AI-Driven Uptick in Demand</Text>
-            <Text style={styles.cardText}>
-              Artisan Partners, an investment management company, released its “Artisan Small Cap Fund” first quarter 2024 investor letter. A copy of the letter can be downloaded here. Equity markets surged at the beginning of 2024 in anticipation of the US economy entering a "goldilocks" scenario - a soft landing combined with decreasing inflation, potentially leading to a cut in interest rates by the Fed. In the first quarter, its Investor Class fund ARTSX returned 9.43%, Advisor Class fund APDSX posted a return of 9.42%, and Institutional Class fund APHSX returned 9.48%, compared to a return of 7.58% for the Russell 2000 Growth Index. In addition, please check the fund’s top five holdings to know its best picks in 2024.
-            </Text>
-            <TouchableOpacity style={styles.cardButton} onPress={() => Linking.openURL('https://finance.yahoo.com/news/super-micro-computer-smci-experienced-111019309.html')}>
-              <Text style={styles.cardButtonText}>Continue reading</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.cardContainer}>
+          {error && <Text style={styles.error}>{error}</Text>}
+          {news.map((item) => (
+            <View key={item._id} style={[styles.card, styles.darkBackground]}>
+              <View style={styles.cardBody}>
+                <Image
+                  source={{ uri: item.imageUrl }}
+                  style={styles.cardIcon}
+                />
+                <Text style={styles.cardTitle}>{item.title}</Text>
+                <Text style={styles.cardText}>{item.description}</Text>
+              </View>
+            </View>
+          ))}
         </View>
       </View>
-    </View>
 
-      {/* Images */}
       <View style={styles.imagebg}>
         <Image source={require('../assets/idea.jpg')} style={styles.image} />
         <Text style={styles.paragraph}>
@@ -120,8 +73,8 @@ function HomeScreen({ navigation }) {
         <TouchableOpacity
           style={styles.imgbtnbg}
           onPress={() => navigation.navigate("Administrators")}>
-    <Text style={styles.adminButtonText1}>Meet the developers!</Text>
-  </TouchableOpacity>
+          <Text style={styles.adminButtonText1}>Meet the developers!</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.imagebg}>
         <Image source={require('../assets/success.jpg')} style={styles.image} />
@@ -131,11 +84,10 @@ function HomeScreen({ navigation }) {
         <TouchableOpacity
           style={styles.imgbtnbg}
           onPress={() => navigation.navigate("Administrators")}>
-    <Text style={styles.adminButtonText1}>Meet the developers!</Text>
-  </TouchableOpacity>
+          <Text style={styles.adminButtonText1}>Meet the developers!</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Accordion */}
       <View style={styles.accordion}>
         <TouchableOpacity
           style={styles.accordionButton}
@@ -165,64 +117,60 @@ function HomeScreen({ navigation }) {
         </Collapsible>
       </View>
 
-      {/* Administrators */}
       <View style={styles.viewStyle}>
-  <TouchableOpacity
-    style={styles.adminButtonspace} 
-  >
-    <Text style={styles.adminButtonText}></Text>
-  </TouchableOpacity>
-</View>
+        <TouchableOpacity
+          style={styles.adminButtonspace}
+        >
+          <Text style={styles.adminButtonText}></Text>
+        </TouchableOpacity>
+      </View>
 
-<View style={styles.viewStyle}>
-  <TouchableOpacity
-    style={styles.adminButton} 
-    onPress={() => navigation.navigate("Administrators")}
-  >
-    <Text style={styles.adminButtonText}>Administrators</Text>
-  </TouchableOpacity>
-  
-</View>
-<View style={styles.viewStyle}>
-  <TouchableOpacity
-    style={styles.adminButtonspace}
-  >
-    <Text style={styles.adminButtonText}></Text>
-  </TouchableOpacity>
-</View>
+      <View style={styles.viewStyle}>
+        <TouchableOpacity
+          style={styles.adminButton}
+          onPress={() => navigation.navigate("Administrators")}
+        >
+          <Text style={styles.adminButtonText}>Administrators</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.viewStyle}>
+        <TouchableOpacity
+          style={styles.adminButtonspace}
+        >
+          <Text style={styles.adminButtonText}></Text>
+        </TouchableOpacity>
+      </View>
 
-
-      {/* Modal */}
-      {/* Implement modal component */}
-      {/* Footer */}
       <View style={styles.footer}>
-    <Text style={styles.footerText1}>Copyright © 2023</Text>
-  <TouchableOpacity onPress={() => {/* Navigate to Privacy Policy screen */}}>
-    <Text style={styles.footerLink}>Privacy Policy</Text>
-  </TouchableOpacity>
-  <TouchableOpacity onPress={() => {/* Navigate to Terms & Conditions screen */}}>
-    <Text style={styles.footerLink}>Terms & Conditions</Text>
-  </TouchableOpacity>
-  <TouchableOpacity onPress={() => {/* Navigate to Cookie Policy screen */}}>
-    <Text style={styles.footerLink}>Cookie Policy</Text>
-  </TouchableOpacity>
-  <TouchableOpacity onPress={() => {/* Navigate to Contact screen */}}>
-    <Text style={styles.footerLink}>Contact</Text>
-  </TouchableOpacity>
-  <TouchableOpacity>
-    <Text style={styles.footerLink}></Text>
-  </TouchableOpacity>
-</View>
-      
+        <Text style={styles.footerText1}>Copyright © 2024 QuantiGoals</Text>
+        <TouchableOpacity onPress={() => { /* Navigate to Privacy Policy screen */ }}>
+          <Text style={styles.footerLink}>Privacy Policy</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => { /* Navigate to Terms & Conditions screen */ }}>
+          <Text style={styles.footerLink}>Terms & Conditions</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => { /* Navigate to Cookie Policy screen */ }}>
+          <Text style={styles.footerLink}>Cookie Policy</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => { /* Navigate to Contact screen */ }}>
+          <Text style={styles.footerLink}>Contact</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.footerLink}></Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  // Container Styles
   container: {
     flexGrow: 1,
     backgroundColor: '#fff',
   },
+
+  // Navbar Styles
   navbar: {
     backgroundColor: '#044556',
     paddingVertical: 15,
@@ -236,24 +184,29 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+
+  // Get Connected Styles
   getConnected: {
     backgroundColor: '#044556',
     padding: 20,
   },
+
+  // Heading Styles
   heading: {
     color: '#fff',
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    
-
   },
+
+  // Paragraph Styles
   paragraph: {
     color: '#aeb2b3',
     marginBottom: 20,
     textAlign: 'justify',
-    
   },
+
+  // Button Styles
   button: {
     backgroundColor: '#fff',
     paddingVertical: 10,
@@ -265,12 +218,16 @@ const styles = StyleSheet.create({
     color: '#044556',
     fontWeight: 'bold',
   },
+
+  // Image Styles
   image: {
     width: '100%',
     height: 200,
     resizeMode: 'cover',
     marginTop: 20,
   },
+
+  // Subscription Styles
   subscription: {
     backgroundColor: '#000',
     padding: 20,
@@ -285,6 +242,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   
+  // Input Styles
   input: {
     flex: 1,
     backgroundColor: '#fff',
@@ -294,6 +252,8 @@ const styles = StyleSheet.create({
     height: 40,
     color: '#000',
   },
+
+  // Subscribe Button Styles
   subscribeButton: {
     backgroundColor: '#044556',
     paddingVertical: 10,
@@ -304,6 +264,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+
+  // Card Styles
   cardContainer: {
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -375,6 +337,8 @@ const styles = StyleSheet.create({
     color: '#044556',
     fontWeight: 'bold',
   },
+
+  // Background Styles
   darkBackground: {
     backgroundColor: '#000',
   },
@@ -384,6 +348,8 @@ const styles = StyleSheet.create({
   secondaryBackground: {
     backgroundColor: '#6c757d',
   },
+
+  // Footer Styles
   footer: {
     backgroundColor: '#044556',
     paddingVertical: 20,
@@ -404,6 +370,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
+  // Image Section Styles
   imageSection: {
     paddingHorizontal: 10,
     marginBottom: 20,
@@ -442,6 +409,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
   },
+
+  // Button Background Styles
   buttonbg: {
     color: '#fff',
     fontWeight: 'bold',
@@ -452,8 +421,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     alignSelf: 'flex-start',
-    
   },
+
+  // Accordion Styles
   accordion: {
     marginTop: 20,
   },
@@ -478,10 +448,14 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
   },
+
+  // Centered Button Container Styles
   centeredButtonContainer: {
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  // Admin Button Styles
   adminButton: {
     backgroundColor: '#fff',
     paddingVertical: 15,
@@ -491,7 +465,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#044556', 
   },
-
   adminButtonText: {
     color: '#044556',
     fontWeight: 'bold',
@@ -500,9 +473,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
-  
-  
-  
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
 });
 
 export default HomeScreen;

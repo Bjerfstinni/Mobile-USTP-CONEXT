@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image } from 'react-native';
-import Collapsible from 'react-native-collapsible';
+import React, {} from 'react';
+import { ScrollView, StyleSheet, Text,TouchableOpacity, View, Image } from 'react-native';
 
 function HomePage({ navigation }) {
 
@@ -19,94 +18,6 @@ function HomePage({ navigation }) {
         </TouchableOpacity>
         <Image source={require('../assets/img1.png')} style={styles.image} />
       </View>
-
-      {/* Subscription */}
-      <View style={styles.subscription}>
-        <Text style={styles.subscriptionHeading}>Sign Up for Constant Register Notification</Text>
-        <View style={styles.subscriptionInput}>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your email"
-            placeholderTextColor="#aeb2b3"
-          />
-          <TouchableOpacity style={styles.subscribeButton}>
-            <Text style={styles.subscribeButtonText}>Subscribe</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Cards */}
-      <View style={styles.cards}>
-      <View style={styles.cardContainer}>
-        {/* Card 1 */}
-        <View style={[styles.card, styles.darkBackground]}>
-          <View style={styles.cardBody}>
-            <Image
-              source={require('../assets/news/image1.jpg')}
-              style={styles.cardIcon}
-            />
-            <Text style={styles.cardTitle}>DICT highlights urgent need to regulate social media 'terms and conditions' for public data protection</Text>
-            <Text style={styles.cardText}>
-              The Department of Information and Communications Technology (DICT) on Monday, May 27, highlighted the need to regulate the terms and conditions of over-the-top (OTT) social media applications regarding the use of public data.
-            </Text>
-            <TouchableOpacity style={styles.cardButton} onPress={() => Linking.openURL('https://mb.com.ph/2024/5/27/dict-highlights-urgent-need-to-regulate-social-media-terms-and-conditions-for-public-data-protection')}>
-              <Text style={styles.cardButtonText}>Continue reading</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Card 2 */}
-        <View style={[styles.card, styles.darkBackground]}>
-          <View style={styles.cardBody}>
-            <Image
-              source={require('../assets/news/image2.jpg')}
-              style={styles.cardIcon}
-            />
-            <Text style={styles.cardTitle}>Research team demonstrates modular, scalable hardware architecture for a quantum computer</Text>
-            <Text style={styles.cardText}>
-              Quantum computers hold the promise of being able to quickly solve extremely complex problems that might take the world's most powerful supercomputer decades to crack.
-            </Text>
-            <TouchableOpacity style={styles.cardButton} onPress={() => Linking.openURL('https://www.msn.com/en-us/news/other/research-team-demonstrates-modular-scalable-hardware-architecture-for-a-quantum-computer/ar-BB1ngJwa?ocid=BingNewsSearch')}>
-              <Text style={styles.cardButtonText}>Continue reading</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Card 3 */}
-        <View style={[styles.card, styles.darkBackground]}>
-          <View style={styles.cardBody}>
-            <Image
-              source={require('../assets/news/image3.jpg')}
-              style={styles.cardIcon}
-            />
-            <Text style={styles.cardTitle}>From colleague to computer: Navigating the blurred lines in tomorrow’s workplace</Text>
-            <Text style={styles.cardText}>
-              Imagine yourself, in the near future, joining a call to discuss a hiring initiative with four colleagues. Two of them are from strategy and HR. One is a vice president. Another comes from a department with an urgent need for more investment. The discussion is productive, and you schedule a follow-up session.
-            </Text>
-            <TouchableOpacity style={styles.cardButton} onPress={() => Linking.openURL('https://www.fastcompany.com/91131376/from-colleague-to-computer-navigating-the-blurred-lines-in-tomorrows-workplace')}>
-              <Text style={styles.cardButtonText}>Continue reading</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Card 4 */}
-        <View style={[styles.card, styles.darkBackground]}>
-          <View style={styles.cardBody}>
-            <Image
-              source={require('../assets/news/image4.jpg')}
-              style={styles.cardIcon}
-            />
-            <Text style={styles.cardTitle}>Super Micro Computer (SMCI) Experienced an AI-Driven Uptick in Demand</Text>
-            <Text style={styles.cardText}>
-              Artisan Partners, an investment management company, released its “Artisan Small Cap Fund” first quarter 2024 investor letter. A copy of the letter can be downloaded here. Equity markets surged at the beginning of 2024 in anticipation of the US economy entering a "goldilocks" scenario - a soft landing combined with decreasing inflation, potentially leading to a cut in interest rates by the Fed. In the first quarter, its Investor Class fund ARTSX returned 9.43%, Advisor Class fund APDSX posted a return of 9.42%, and Institutional Class fund APHSX returned 9.48%, compared to a return of 7.58% for the Russell 2000 Growth Index. In addition, please check the fund’s top five holdings to know its best picks in 2024.
-            </Text>
-            <TouchableOpacity style={styles.cardButton} onPress={() => Linking.openURL('https://finance.yahoo.com/news/super-micro-computer-smci-experienced-111019309.html')}>
-              <Text style={styles.cardButtonText}>Continue reading</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </View>
 
       {/* Images */}
       <View style={styles.imagebg}>
@@ -164,7 +75,7 @@ function HomePage({ navigation }) {
       {/* Footer */}
 {/* Footer */}
 <View style={styles.footer}>
-    <Text style={styles.footerText1}>Copyright © 2023</Text>
+    <Text style={styles.footerText1}>Copyright © 2024 QuantiGoals</Text>
   <TouchableOpacity onPress={() => {/* mag navigate sa Privacy Policy screen */}}>
     <Text style={styles.footerLink}>Privacy Policy</Text>
   </TouchableOpacity>

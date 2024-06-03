@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 
 const SignUp = ({ navigation }) => {
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('User');
 
   const handleSignUp = async () => {
     try {
@@ -14,7 +16,7 @@ const SignUp = ({ navigation }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ fname, lname, email, password }),
+        body: JSON.stringify({ fname, lname, email, password, role }),
       });
       const data = await response.json();
       if (data.status === 'okay') {
@@ -58,6 +60,16 @@ const SignUp = ({ navigation }) => {
         onChangeText={setPassword}
         secureTextEntry
       />
+      <View style={styles.roleContainer}>
+        <View style={styles.roleOption}>
+          <CheckBox value={true} disabled={true} />
+          <Text style={styles.roleText}>Admin</Text>
+        </View>
+        <View style={styles.roleOption}>
+          <CheckBox value={role === 'User'} onValueChange={() => setRole('User')} />
+          <Text style={styles.roleText}>User</Text>
+        </View>
+      </View>
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
@@ -95,6 +107,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
+  roleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginVertical: 10,
+  },
+  roleOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  roleText: {
+    marginLeft: 5,
+  },
   button: {
     backgroundColor: '#044556',
     paddingVertical: 10,
@@ -116,7 +141,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   linkText: {
-    color: '#007bff', // Link color
+    color: '#007bff',
     textAlign: 'center',
   },
 });

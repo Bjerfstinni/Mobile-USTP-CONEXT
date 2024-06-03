@@ -1,27 +1,33 @@
+// MainNavigator.js
 import React, { useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from './Navigation/AuthContext';
-import { Image, TouchableOpacity } from 'react-native'; // Import TouchableOpacity
+import { Image, TouchableOpacity } from 'react-native';
 import HomeScreen from './Screens/HomeScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import UserScreen from './Screens/UserScreen';
 import Administrators from './Screens/Administrators';
-import Login from './Components/Login';
+import Login from './Components/Login'; // Make sure Login is imported
 import SignUp from './Components/SignUp';
 import HomePage from './Components/HomePage';
 import ModalComponent from './Components/ModalComponent';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 
-// Import the icon image
 import MenuIcon from './assets/menu.png';
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn } = useAuth(); // Get isLoggedIn and setIsLoggedIn from the AuthContext
   const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation(); // Use useNavigation hook
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false); // Logout the user
   };
 
   return (
@@ -37,7 +43,6 @@ const MainNavigator = () => {
                 headerStyle: { backgroundColor: '#044556' },
                 headerTintColor: '#fff',
                 headerRight: () => (
-                  // Wrap the Image with TouchableOpacity
                   <TouchableOpacity onPress={toggleModal}>
                     <Image 
                       source={MenuIcon}
@@ -47,9 +52,9 @@ const MainNavigator = () => {
                 ),
               }}  
             />
+            <Stack.Screen name="Administrators" component={Administrators} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
             <Stack.Screen name="User" component={UserScreen} />
-            <Stack.Screen name="Administrators" component={Administrators} />
           </>
         ) : (
           <>
@@ -62,12 +67,13 @@ const MainNavigator = () => {
                 headerTintColor: '#fff',
               }}  
             />
-            <Stack.Screen name="Login" component={Login} options={{ headerShown: true }} />
+            <Stack.Screen name="Login" component={Login} options={{ headerShown: true }} /> 
             <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="Administrators" component={Administrators} />
           </>
         )}
       </Stack.Navigator>
-      <ModalComponent visible={modalVisible} onClose={toggleModal} />
+      {isLoggedIn && <ModalComponent visible={modalVisible} onClose={toggleModal} onLogout={handleLogout} navigation={navigation} />}
     </>
   );
 };

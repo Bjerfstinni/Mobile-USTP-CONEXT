@@ -21,7 +21,7 @@ const Login = ({ navigation }) => {
       if (data.status === 'okay') {
         Alert.alert('Login Successful', 'You have successfully logged in!');
         setIsLoggedIn(true); // Set the user as logged in
-        navigation.replace('DrawerNavigator'); // Navigate to HomeScreen
+        navigation.replace('HomeScreen'); // Navigate to HomeScreen
       } else {
         Alert.alert('Login Failed', data.error || 'An error occurred');
       }
